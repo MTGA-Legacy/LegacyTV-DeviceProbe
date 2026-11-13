@@ -179,14 +179,13 @@ public final class CodecTestRunner {
 
                 int outputIndex = codec.dequeueOutputBuffer(bufferInfo, DEQUEUE_TIMEOUT_US);
                 if (outputIndex >= 0) {
+                    boolean sampleAfterRelease = false;
                     if (bufferInfo.size > 0) {
                         outputFrames++;
                         outputBytes += bufferInfo.size;
                         if (firstFrameMs < 0) {
                             firstFrameMs = SystemClock.elapsedRealtime() - decodeStarted;
-                            if (spec.video && surface != null) {
-                                visualSample = runtime.sampleSurface();
-                            }
+                            sampleAfterRelease = spec.video && surface != null;
                         }
                     }
                     if ((bufferInfo.flags & MediaCodec.BUFFER_FLAG_END_OF_STREAM) != 0) {
@@ -194,6 +193,14 @@ public final class CodecTestRunner {
                     }
                     boolean render = spec.video && surface != null;
                     codec.releaseOutputBuffer(outputIndex, render);
+                    if (sampleAfterRelease) {
+                        try {
+                            Thread.sleep(30L);
+                        } catch (InterruptedException error) {
+                            Thread.currentThread().interrupt();
+                        }
+                        visualSample = runtime.sampleSurface();
+                    }
                 } else if (outputIndex == MediaCodec.INFO_OUTPUT_BUFFERS_CHANGED) {
                     outputBuffers = codec.getOutputBuffers();
                 } else if (outputIndex == MediaCodec.INFO_OUTPUT_FORMAT_CHANGED) {

@@ -4,7 +4,7 @@
 
 ## 能力
 
-- 原生 Android Java，`minSdkVersion 19`。
+- 原生 Android Java，`minSdkVersion 19`，`targetSdkVersion 35`。
 - 读取 Android、Build、CPU ABI、`/proc/cpuinfo`、内存、显示和 OpenGL ES 声明信息。
 - 使用 `MediaCodecList` 枚举编码器和解码器。
 - 使用应用内置的本地短片段运行 H.264 Baseline/Main/High、声明支持时的 HEVC、AAC、MP3 测试。

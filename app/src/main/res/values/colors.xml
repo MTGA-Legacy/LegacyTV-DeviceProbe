@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="probe_background">#101318</color>
+    <color name="probe_surface">#1B2029</color>
+    <color name="probe_surface_focus">#283B5C</color>
+    <color name="probe_text">#F5F7FA</color>
+    <color name="probe_text_secondary">#B8C1D1</color>
+    <color name="probe_primary">#6EA4FF</color>
+</resources>
